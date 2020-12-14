@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+<div>我今天中了双色球<%= num %>等奖，哈哈哈哈哈</div>
+<ul>
+<%
+    for(var i = 0;i < list.length;i++){
+        if(list[i].age < 20){
+%>
+        <li>
+            <span style="color:red;"><%= list[i].title %></span>
+            <span style="color:green"><%= list[i].age %></span>
+        </li>
+
+<% 
+    }
+}
+ %>
+</ul>
+
+
+
+
+</body>
+</html>

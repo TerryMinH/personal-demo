@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>模块模式</title>
+</head>
+
+<body>
+  <div id="container"></div>
+</body>
+
+<script>
+  var F = F || {};
+
+  F.define = function (str, fn) {
+    console.log(this);
+    var parts = str.split('.'),
+      old = parent = this,
+      i = len = 0;
+
+    if (parts[0] === 'F') {
+      parts = parts.slice(1);
+    }
+    if (parts[0] === 'define' || parts[0] === 'module') {
+      return;
+    }
+    for (len = parts.length; i < len; i++) {
+      if (typeof parent[parts[i]] === 'undefined') {
+        parent[parts[i]] = {};
+      }
+      old = parent;
+      parent = parent[parts[i]];
+    }
+
+    if (fn) {
+      old[parts[--i]] = fn();
+    }
+    console.log(this);
+    return this;
+  }
+
+  F.define('string', function () {
+    return {
+      trim: function (str) {
+        return str.replace(/^\s+|\s+$/g, '')
+      }
+    }
+  });
+
+  F.string.trim('测试用例。   ');
+  console.log(F.string.trim('    测试用例。   '));
+</script>
+
+</html>

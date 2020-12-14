@@ -1,0 +1,140 @@
+<!--
+ * @Author: TerryMin
+ * @Date: 2019-09-19 18:07:50
+ * @LastEditors: TerryMin
+ * @LastEditTime: 2019-09-24 15:40:35
+ * @Description: file not
+ -->
+<!doctype html>
+<html>
+
+<head>
+  <title>JS webpack</title>
+  <script src="https://unpkg.com/@reactivex/rxjs@5.0.3/dist/global/Rx.js"></script>
+  <style type="text/css">
+    #box {
+      position: absolute;
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      background-color: #f46;
+      cursor: all-scroll;
+    }
+  </style>
+
+</head>
+
+<body>
+  <button>点击</button>
+  <!-- <div id="box"></div> -->
+</body>
+<script>
+  let number = Rx.Observable.interval(1000).take(5);
+  number.subscribe(x => console.log(x));
+
+  // let button = document.querySelector('button');
+  // let observable = Rx.Observable.fromEvent(button, 'click');
+  // observable.subscribe(() => console.log('Clicked!'))
+
+  // let observable = Rx.Observable.create(function (observer) {
+  //   observer.next('hi');
+  //   observer.next('world');
+  //   setTimeout(() => {
+  //     observer.next('这是一段异步操作');
+  //   }, 30)
+  // })
+
+  // console.log('start');
+  // let subscription = observable.subscribe(function (value) {
+  //   console.log(value);
+  // })
+  // console.log('end');
+  // setTimeout(() => {
+  //   subscription.unsubscribe()
+  // }, 5000)
+
+  // Rx.Observable.of(2)
+  //   .map(v => v * 2)
+  //   .subscribe(v => console.log('output:' + v));
+
+  // Rx.Observable.of(1, 5)
+  //   .scan((x, y) => x + y, 0)
+  //   .subscribe(v => console.log(v));
+
+  // let observable = Rx.Observable.create(function (observer) {
+  //   observer.next(1);
+  //   observer.next(2);
+  //   observer.next(3);
+  //   observer.complete();
+  // });
+  // observable.subscribe(
+  //   value => console.log(value),
+  //   err => { },
+  //   () => console.log('this is the end')
+  // )
+
+  // let source = Rx.Observable.create(function (observer) {
+  //   try {
+  //     observer.next(1);
+  //     observer.next(2);
+  //     observer.next(3);
+  //     setTimeout(() => {
+  //       observer.next('RxJS 30 days!')
+  //     }, 2000);
+  //   } catch (e) {
+  //     observer.error(e);
+  //   }
+  // });
+
+  // let observer = {
+  //   next: (val) => console.log(val + '观察者'),
+  //   error: () => console.log('出错啦'),
+  //   complete: () => console.log('完成')
+  // }
+
+  // let subscribe = source.subscribe(observer);
+  // let time = setTimeout(() => {
+  //   subscribe.unsubscribe();
+  //   console.log('取消订阅')
+  // }, 2000);
+
+  // let observerA = {
+  //   next: value => console.log('A next:' + value),
+  //   error: error => console.log('A error:' + error),
+  //   complete: () => console.log('A complete!')
+  // }
+
+  // let observerB = {
+  //   next: value => console.log('B next: ' + value),
+  //   error: error => console.log('B error: ' + error),
+  //   complete: () => console.log('B complete!')
+  // }
+
+  // let source = Rx.Observable.interval(1000).take(3);
+  // let subject = new Rx.Subject();
+  // subject.subscribe(observerA);
+  // subject.subscribe(observerB);
+  // source.subscribe(subject);
+
+  // setTimeout(() => {
+  //   subject.subscribe(observerB);
+  // },4000)
+
+
+  // let observable = Rx.Observable.create(function (observer) {
+  //   observer.next(1);
+  //   observer.next(2);
+  //   observer.next(3);
+  //   observer.complete();
+  // })
+  // console.log('before subscribe');
+
+  // observable.observeOn(Rx.Scheduler.async)
+  // .subscribe({
+  //   next:(value)=>{console.log(value)},
+  //   error:(err)=>{console.log('Error'+err)},
+  //   complete:()=>{console.log('complete')}
+  // })
+</script>
+
+</html>

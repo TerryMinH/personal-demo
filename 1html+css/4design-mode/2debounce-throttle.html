@@ -1,0 +1,79 @@
+<!--
+ * @Author: TerryMin
+ * @Date: 2020-02-24 08:50:17
+ * @LastEditors: TerryMin
+ * @LastEditTime: 2020-09-24 21:06:14
+ * @Description: file not
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>函数节流模式</title>
+</head>
+
+<body>
+  函数防抖： <input type="text" id="inputId">
+</body>
+
+<script>
+  let elem = document.getElementById("inputId");
+  // 不防抖函数
+  elem.addEventListener('keyup', function (e) {
+    console.log(e.target.value);
+  })
+
+  // 防抖函数
+  // function debounce(fn, delay) {
+  //   let timer;
+  //   return function () {
+  //     // this赋值：函数运行时会改变内部this的指向问题. 下面可以利用箭头函数而不用this赋值。
+  //     let _this = this, args = arguments;
+  //     if (timer) { clearTimeout(timer); }
+  //     timer = setTimeout(function () {
+  //       fn.apply(this, args);
+  //     }, delay)
+  //   }
+  // }
+
+  // function testDebounce(e, content) {
+  //   console.log(e.target.value, content);
+  // }
+  // let DebounceFn = debounce(testDebounce, 1000);
+
+  // elem.addEventListener('keyup', function (e) {
+  //   DebounceFn(e, 'debounce');
+  // })
+
+  // 非节流函数
+  document.onmousemove = function (e) {
+    console.log(e);
+  }
+
+  // 节流函数
+  function throttle(fn, delay) {
+    let timer;
+    return function () {
+      let _this = this, args = arguments;
+      if (timer) { return; }
+      timer = setTimeout(function () {
+        fn.apply(_this, args);
+        timer = null;
+      }, delay);
+    }
+  }
+  function testThrottle(e, content) {
+    console.log(e, content);
+  }
+
+  let testThrottleFn = throttle(testThrottle, 1000); // 节流函数
+
+  document.onmousemove = function (e) {
+    testThrottleFn(e, 'throttle');
+  }
+</script>
+
+</html>

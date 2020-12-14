@@ -1,0 +1,36 @@
+<!--
+ * @Author: TerryMin
+ * @Date: 2019-10-27 10:45:37
+ * @LastEditors: TerryMin
+ * @LastEditTime: 2019-10-27 11:30:40
+ * @Description: file not
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>表单提交</title>
+  <link rel="stylesheet" href="css/master.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="title">注册中心
+      <span class="title-status"><a href="index.html">返回相册</a></span>
+    </div>
+    <form class="form" enctype="multipart/form-data" action="http://localhost:8000/upload" method="post">
+      <ul>
+        <li><input type="text" name="name" placeholder="请输入您的名字" class="txt" /></li>
+        <li><input type="password" name="password" placeholder="请输入您需要设置的密码" class="txt" /></li>
+        <li><input type="file" name="uploadImg" /></li>
+        <li><input type="submit" placeholder="" class="btn" /></li>
+      </ul>
+      <div class="cl"></div>
+    </form>
+  </div>
+</body>
+
+</html>
