@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>手写 React Redux</title>
+</head>
+
+<body>
+  <div id="title"></div>
+  <div id="content"></div>
+</body>
+
+<script>
+
+  function createStore(state, stateChanger) {
+    const listeners = [];
+    const getState = () => state;
+
+    const subscribe = (listener) => listeners.push(listener);
+    const dispatch = (action) => {
+      stateChanger(state, action);
+      listeners.forEach((listener) => listener())
+    }
+    return { getState, dispatch, subscribe }
+  }
+
+  function stateChanger(state, action) {
+    switch (action.type) {
+      case 'UPDATE_TITLE_TEXT':
+        state.title.text = action.text;
+        break;
+      case 'UPDATE_TITLE_COLOR':
+        state.title.color = action.color;
+        break
+      default:
+        break
+    }
+  }
+
+  const appState = {
+    title: {
+      text: 'Reacr333.js小书',
+      color: 'purple'
+    },
+    content: {
+      text: 'React444.js小书内容',
+      color: 'blue'
+    }
+  }
+
+  function renderApp(appState) {
+    console.log(appState);
+    renderTitle(appState.title);
+    renderContent(appState.content)
+  }
+
+  function renderTitle(title) {
+    const titleDOM = document.getElementById('title');
+    titleDOM.innerHTML = title.text;
+    titleDOM.style.color = title.color;
+  }
+
+  function renderContent(content) {
+    const contentDOM = document.getElementById('content');
+    contentDOM.innerHTML = content.text;
+    contentDOM.style.color = content.color;
+  }
+
+  const store = createStore(appState, stateChanger);
+  console.log(store);
+  console.log(store.getState());
+  store.subscribe(() => renderApp(store.getState()));
+  // renderApp(store.getState());
+  store.dispatch({ type: 'UPDATE_TITLE_TEXT', text: '《react555.js小书》' });
+  store.dispatch({ type: 'UPDATE_TITLE_COLOR', color: 'red' });
+
+</script>
+
+</html>
