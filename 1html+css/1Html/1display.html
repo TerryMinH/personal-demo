@@ -2,7 +2,7 @@
  * @Author: TerryMin
  * @Date: 2019-12-26 10:01:02
  * @LastEditors: TerryMin
- * @LastEditTime: 2020-12-14 14:57:39
+ * @LastEditTime: 2020-12-15 11:11:10
  * @Description: file not
 -->
 <!DOCTYPE html>
@@ -14,43 +14,29 @@
   <style>
 
   </style>
-  <script>
-    function fn(n) { //写一个可以让程序假死的函数
-      if (n <= 2) {
-        return 1;  // 如果我们传进来的小于等于2 就走这个。
-      } else {
-        return fn(n - 2) + fn(n - 1);  //如果我们传进来的大于2，就一直自动的持续调用自己，直到小于2。这样可以让系统进入假死状态，需要处理很长时间才结束。
-      }
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-      var aBtn = document.querySelectorAll('input');
-      var oW;//因为要做四个点击按钮，所以让线程为全局变量
-      aBtn[0].onclick = function () { //点击的时候 直接调用函数 让程序假死，然后点击第四个按钮，测试看看能不能弹1
-        alert(fn(48));
-      };
-      aBtn[1].onclick = function () { //点击的时候让子线程来执行这个 同样的函数，然后点击第四个按钮，测试看看能不能弹1
-        oW = new Worker('fib.js');
-        oW.postMessage(48);
-        oW.onmessage = function (ev) { alert(ev.data); };
-      };
-      aBtn[2].onclick = function () { //测试成功后就用来终止子线程，，因为等待时间确实长。。你懂得
-        oW.terminate();
-      };
-      aBtn[3].onclick = function () {  //作为测试函数。
-        alert(1);
-      };
 
-    }, false);
-
-
-  </script>
 </head>
 
 <body>
-  <input type="button" value="开启主线程">
-  <input type="button" value="开启子线程">
-  <input type="button" value="关闭进程">
-  <input type="button" value="测试">
+
 </body>
+<script>
+  let asyncfn = function (num, timecount) {
+    return new Promise((resolve, reject) => {
+      setTimeout(function () {
+        console.log(num)
+        resolve();
+      }, timecount)
+    })
+
+  }
+  let fn = async function () {
+    await asyncfn(1111, 1000)
+    await asyncfn(2222, 600)
+    await asyncfn(3333, 100)
+  }
+  fn()
+
+</script>
 
 </html>
