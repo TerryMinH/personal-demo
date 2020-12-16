@@ -3,6 +3,11 @@
     "tslint:recommended",
     "tslint-config-prettier"
   ],
+  "linterOptions": {
+    "exclude": [
+      "src/app/common/**"
+    ]
+  },
   "rulesDirectory": [
     "codelyzer",
     "ng-alain-codelyzer",
