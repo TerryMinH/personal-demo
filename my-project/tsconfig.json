@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "src/",
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -14,48 +14,12 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "module": "es2015",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "module": "es2020",
+    "lib": ["es2018", "dom"],
     "paths": {
-      "@shared": [
-        "app/shared"
-      ],
-      "@shared/*": [
-        "app/shared/*"
-      ],
-      "@common": [
-        "app/common"
-      ],
-      "@common/*": [
-        "app/common/*"
-      ],
-      "@component": [
-        "app/component"
-      ],
-      "@component/*": [
-        "app/component/*"
-      ],
-      "@core": [
-        "app/core"
-      ],
-      "@core/*": [
-        "app/core/*"
-      ],
-      "@testing": [
-        "testing"
-      ],
-      "@testing/*": [
-        "testing/*"
-      ],
-      "@env": [
-        "environments"
-      ],
-      "@env/*": [
-        "environments/*"
-      ]
+      "@shared": ["src/app/shared/index"],
+      "@core": ["src/app/core/index"],
+      "@env/*": ["src/environments/*"]
     }
   },
   "angularCompilerOptions": {
