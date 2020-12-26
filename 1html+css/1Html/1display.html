@@ -2,7 +2,7 @@
  * @Author: TerryMin
  * @Date: 2019-12-26 10:01:02
  * @LastEditors: TerryMin
- * @LastEditTime: 2020-12-15 11:11:10
+ * @LastEditTime: 2020-12-21 14:38:42
  * @Description: file not
 -->
 <!DOCTYPE html>
@@ -10,9 +10,16 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>前端开发工程师</title>
+  <title>前端开发</title>
   <style>
-
+    .triangle {
+      width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
   </style>
 
 </head>
@@ -21,22 +28,23 @@
 
 </body>
 <script>
-  let asyncfn = function (num, timecount) {
-    return new Promise((resolve, reject) => {
-      setTimeout(function () {
-        console.log(num)
-        resolve();
-      }, timecount)
-    })
-
+  const twoSum = function (nums, target) {
+    const map = new Map();
+    for (let i = 0; i < nums.length; i++) {
+      let value = target - nums[i];
+      console.log(map,value)
+      if (map.has(value)) {
+        return [map.get(value), i];
+      }
+      map.set(nums[i], i);
+    }
+    return [];
   }
-  let fn = async function () {
-    await asyncfn(1111, 1000)
-    await asyncfn(2222, 600)
-    await asyncfn(3333, 100)
-  }
-  fn()
 
+  let nums = [2, 7, 11, 15],
+    target = 26;
+  const result = twoSum(nums, target);
+  console.log(result);
 </script>
 
 </html>
