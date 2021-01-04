@@ -1,141 +1,77 @@
-[![CircleCI branch](https://img.shields.io/circleci/project/github/duxianwei520/react/master.svg?style=flat-square)](https://circleci.com/gh/duxianwei520/react)
-[![GitHub forks](https://img.shields.io/github/forks/duxianwei520/react.svg)](https://github.com/duxianwei520/react/network)
-[![GitHub stars](https://img.shields.io/github/stars/duxianwei520/react.svg)](https://github.com/duxianwei520/react/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/duxianwei520/react.svg)](https://github.com/duxianwei520/react/issues)
-[![GitHub license](https://img.shields.io/github/license/duxianwei520/react.svg)](https://github.com/duxianwei520/react/blob/master/LICENSE)
-[![Coverage Status](https://coveralls.io/repos/github/duxianwei520/react/badge.svg)](https://coveralls.io/github/duxianwei520/react)
+## 基于React+antd实现后台模板
+自己利用业余时间，基于React+antd写了一个后台管理模板。主要是熟悉antd组件和React，页面主要还是展示页面,比较简单不涉及后台交互。
 
-## 项目技术栈
+github地址：[基于React+antd实现后台模板](https://github.com/z-9527/react-admin-master)  
+预览地址：[预览地址](http://47.99.130.140/project/admin)
+<br/>
 
-node10.15.3 + react@16.12.0 + redux@3.7.2 + react-router@3.2.0 + webpack@4.41.2 + axios@0.19.0 + less@2.7.1 + antd@3.25.2
+项目重构地址：[react+koa实现登陆、聊天、留言板功能后台](https://github.com/z-9527/admin)  
+重构预览地址：[重构预览地址](http://47.99.130.140/admin/)
 
-## 交流
-QQ群：159697743
+2019.3.19更新   
+今天回顾了一下项目，发现组件写的有问题，公共组件中不应该写业务逻辑，业务逻辑应该通过props或传递事件来实现；或者再用容器组件封装。  
+webstorm打开项目时占用内存过高，不知道是不是代码的问题。  
+项目的初衷是为了学习和总结，可能前期写的或多或少有些问题，但正是通过解决这些问题才能不断的提升。
+<br/>
 
-## 项目运行
-
-
-```
-git clone --depth 1 https://github.com/duxianwei520/react.git  
-
-cd react (进入项目)
-
-npm install (安装依赖包)
-
-npm start (启动服务)
-
-```
-
-### 如果有小伙伴因为网络原因npm包下载不下来，那么可以最好挂在一个vpn之类的去下载，cnpm不靠谱，不推荐使用
+2019.3.7更新    
+登录后浏览器后退按钮可以回到登录页，登录页不登录，通过浏览器的前进又可直接进入前台。
+我在登录页componentWillMount生命周期加了判断，如果已经登录，重定向到前页面（也可以设置退出登录）
+<br/>
 
 
-## screenshots
+### 技术栈
 
+ - react
+ - antd
+ - react-router
+ - mobx
+ - canvas
+ - ES6
+ - cookie
 
-### login
+自己参考了其他优秀的插件，比如[动态打字效果](https://blog.csdn.net/qq_37860930/article/details/80859473)、背景粒子效果、[shuffle（洗牌）](https://github.com/Vestride/Shuffle)，[全屏插件](https://github.com/sindresorhus/screenfull.js)等，自己对有些插件封装成类使用
 
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/login.gif" width="973" height="557"/>
+所有路由都需要登录才可进入，自己封装了PrivateRoute组件来实现路由认证，登录信息保存在cookie中，原本是保存在store中，但是刷新页面后登录状态丢失，所以就保存在cookie中
+登录背景图太大，使用了[TinyPNG](https://tinypng.com/)进行压缩，并编写了一个loading效果
+<br/>
 
-### echart
+### 项目目录结构
 
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/echart.gif" width="973" height="557"/>
+<img src="https://github.com/zhangZhiHao1996/image-store/blob/master/react-admin-master/111.png?raw=true"/>
+assets----存储静态图片资源和共用icon图标<br/>
+components----存储共用组件<br/>
+routes----业务页面入口和常用模板<br/> 
+store----状态管理<br/>
+utils----工具函数<br/>
+<br/>
 
+### 项目截图
 
-### set center
+<img src="https://github.com/zhangZhiHao1996/image-store/blob/master/react-admin-master/01.png?raw=true"/>  
+<img src="https://github.com/zhangZhiHao1996/image-store/blob/master/react-admin-master/02.png?raw=true"/>  
+<img src="https://github.com/zhangZhiHao1996/image-store/blob/master/react-admin-master/03.png?raw=true"/>  
+<img src="https://github.com/zhangZhiHao1996/image-store/blob/master/react-admin-master/04.png?raw=true"/>  
+<br/>
 
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/set.gif" width="973" height="557"/>
+### 问题
 
+整个demo不复杂，主要是熟悉react和路由等，在打包的过程中出现了一点小问题。我打包的文件是放在服务器二级目录下，所以打包的路径要改为相对路径，不能使用绝对路径，我在package.json中添加了homepage:'.'解决了路径问题。然后BrowserRouter加上了 basename=‘二级目录名称’ 属性，结果还是出现js路径错误，我一直以为是webpack打包的问题，找了很久才发现是因为BrowserRouter，将BrowserRouter改为HashRouter就访问正确。  
+使用react-router（v4）时，如果有服务器端的动态支持，建议使用 BrowserRouter，否则建议使用 HashRouter。  
+BrowserRouter和HashRouter其实就是前端路由的两种实现方式，一种是hash和一种是HTML5的history，网上有很介绍。  
+可以参考：[关于react 在打包后：“找不到资源路径”的问题、部署到服务器二级目录 “打开为空白” 的问题](https://blog.csdn.net/Sophie_U/article/details/80006723)
+<br/>
 
-### webpack bundle analysis
+### 最后
+demo是我断断续续写的，只有下班和周末有时间。写demo的目的主要是熟悉React和react-router以及antd，整个demo中参考了一些其他人的想法，如动画效果等。另外基于vue的个人项目可以看这个[仿制移动端QQ音乐](https://blog.csdn.net/qq_37860930/article/details/80586698)
+<br/>
 
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/analysis.gif" width="973" height="557"/>
+### 其他个人项目
 
-### build dist folder
+- [基于vue+vue-router+jsonp+vuex仿制的移动端`QQ音乐`](https://github.com/zhangZhiHao1996/vue-music-master)
+- [基于React-Antd的`后台模板Demo`](https://github.com/zhangZhiHao1996/react-admin-master)
+- [基于原生小程序精仿的`猫眼电影小程序`](https://github.com/zhangZhiHao1996/weapp-movie-master)
 
-<img src="https://github.com/duxianwei520/resource/blob/master/react/screenshots/dist.gif" width="973" height="557"/>
+<br/>
 
-
-最后的构建命令
-```
-npm run build (正式环境的打包部署)
-npm run testing (测试环境的打包部署命令，可以根据具体需求自行配置修改)
-
-```
-
-服务端返回的数据格式也是标准的json，如下所示
-
-```
-{
-  data: {
-    totalCount: 100,
-    currentPage: 1,
-    pageSize: 10,
-    'list': [
-    ],
-  },
-  msg: '',
-  status: 1,
-}
-
-```
-所有异步请求返回都会经过configs里面的ajax.js做处理，如果请求没有任何问题，那status返回值是1；
-如果请求错误，比如说参数错误或者其他报错之类的，那status返回值就是0；
-如果status值是-1，表示登录超时，那么就会跳出登录。
-这些参数都可以根据实际情况进行调整，报错或者成功的提示信息放在msg里面返回。
-当前项目集成了完整的用户管理、角色管理、模块管理等基本的权限管理功能，小伙伴们一定要同时启动npm run mock才可以看到噢
-
-这个react的项目我有在跟nodejs的express框架配合做接口的开发，可以不靠后端输出数据库真实的数据，仓库地址在
-
-```
-https://github.com/duxianwei520/express
-
-```
-还有一个原生的nodejs版本的，仓库库地址是
-
-```
-https://github.com/duxianwei520/node
-
-```
-基本功能差不多，目前实现了注册登录以及获取用户信息等3个接口的真实api
-
-
-## 说明
-
->  如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
-
-### 大部分人项目启动不起来的原因，绝大部分的情况都是npm依赖包安装的时候有些依赖包没有下载完全，当前的demo肯定是可以跑起来的
-
-### 取消http请求示例：
-```
-import axios from 'axios'
-const axiosHandle = axios.CancelToken.source()
-
-login(){
-  this.props.dispatch(fetchLogin(values, (res) => {},(error)=>{},axiosHandle)
-  取消请求的操作
-  setTimeout(() => {
-    axiosHandle.cancel('手动取消。')
-  }, 3000)
-}
-
-```
-
-
-## 功能一览
-- [√] 登录，以及登录权限控制
-- [√] 项目公用npm模块dll化
-- [√] redux完整示范
-- [√] mockjs模拟后端返回接口
-- [√] axios异步请求跨域的设置
-- [√] 实时的webpack包大小预览,方便优化
-- [√] draftjs编辑器
-
-
-
-## License
-
-[MIT](https://github.com/duxianwei520/react/blob/master/LICENSE)
-
-
-## 交流
-想跟其他的使用react的小伙伴们交流的话，可以加入我创建的reactQQ群：159697743
+`觉得不错的给个star鼓励支持！^_^`
