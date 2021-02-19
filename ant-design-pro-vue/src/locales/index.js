@@ -1,18 +1,27 @@
+/*
+ * @Author: TerryMin
+ * @Date: 2021-01-07 11:01:09
+ * @LastEditors: TerryMin
+ * @LastEditTime: 2021-02-19 14:56:09
+ * @Description: file not
+ */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import storage from 'store'
 import moment from 'moment'
 
 // default lang
-import enUS from './lang/en-US'
+// import enUS from './lang/en-US'
+import zhCN from './lang/zh-CN'
 
 Vue.use(VueI18n)
 
-export const defaultLang = 'en-US'
+// export const defaultLang = 'en-US'
+export const defaultLang = 'zh-CN'
 
 const messages = {
-  'en-US': {
-    ...enUS
+  'zh-CN': {
+    ...zhCN
   }
 }
 
@@ -35,6 +44,7 @@ function setI18nLanguage (lang) {
 export function loadLanguageAsync (lang = defaultLang) {
   return new Promise(resolve => {
     // 缓存语言设置
+    console.log(lang)
     storage.set('lang', lang)
     if (i18n.locale !== lang) {
       if (!loadedLanguages.includes(lang)) {
