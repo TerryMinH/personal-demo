@@ -2,7 +2,7 @@
  * @Author: TerryMin
  * @Date: 2019-12-26 10:01:02
  * @LastEditors: TerryMin
- * @LastEditTime: 2020-12-29 20:48:13
+ * @LastEditTime: 2021-02-21 16:29:17
  * @Description: file not
 -->
 <!DOCTYPE html>
@@ -10,31 +10,52 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>前端开发</title>
+  <title>前端三驾马车</title>
   <style>
-   .weui-icon-checked:before {
-      content: '\EA01';
-      color: #c9c9c9;
-      font-size: 23px;
-      display: block;
-    }
 
-     .weui-check:checked+.weui-icon-checked:before {
-      content: '\EA06';
-      color: #09BB07;
-    }
   </style>
 
 </head>
 
 <body>
-  <div class="weui-cell__hd">
-    <input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked">
-    <i class="weui-icon-checked"></i>
+  <div id="main">
+    <p>前端路由</p>
+    <ul id="list">
+      <li>angular</li>
+      <li>vue</li>
+      <li>react</li>
+      <!-- <li><a href="#angular">angular</a></li>
+      <li><a href="#vue">vue</a></li>
+      <li><a href="#react">react</a></li> -->
+    </ul>
+    <div id="panel">fsasa</div>
   </div>
 </body>
 <script>
- 
+  window.onload = function () {
+    window.onpopstate = function (event) {
+      console.log(event);
+    };
+    window.onhashchange = function (event) {
+      console.log(event);
+      // console.log('hash has been changed to:' + location)
+    };
+    document.querySelector('#list').addEventListener('click', function (event) {
+      console.log(event.target);
+      if (event.target.nodeName == 'LI') {
+        let content = event.target.innerHTML;
+        let _newState = {
+          url: location.origin + '/' + content,
+          title: document.title,
+          state: content
+        };
+        console.log(_newState)
+        console.log('you have change the router to:', content)
+        window.history.pushState(_newState, '', '/' + content);
+       
+      }
+    })
+  }
 </script>
 
 </html>
