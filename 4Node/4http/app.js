@@ -1,36 +1,23 @@
-var http = require('http');
-var querystring = require('querystring');
- 
-var postHTML = 
-  '<html><head><meta charset="utf-8"><title>菜鸟教程 Node.js 实例</title></head>' +
-  '<body>' +
-  '<form method="post">' +
-  '网站名： <input name="name"><br>' +
-  '网站 URL： <input name="url"><br>' +
-  '<input type="submit">' +
-  '</form>' +
-  '</body></html>';
- 
-http.createServer(function (req, res) {
-  var body = "";
-  req.on('data', function (chunk) {
-    body += chunk;
-  });
-  req.on('end', function () {
-    // 解析参数
-    body = querystring.parse(body);
-    console.log(body);
-    // 设置响应头部信息及编码
-    res.writeHead(200, {'Content-Type': 'text/html; charset=utf8'});
- 
-    if(body.name && body.url) { // 输出提交的数据
-        res.write("网站名：" + body.name);
-        res.write("<br>");
-        res.write("网站 URL：" + body.url);
-    } else {  // 输出表单
-        res.write(postHTML);
-    }
-    res.end();
-  });
-}).listen(5000);
-console.log("Server runing at port: " + 5000 + ".");
+/*
+ * @Author: TerryMin
+ * @Date: 2021-02-21 16:12:16
+ * @LastEditors: TerryMin
+ * @LastEditTime: 2021-03-01 14:01:14
+ * @Description: file not
+ */
+const http = require('http');
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-type': 'text/plain;charset=UTF-8' });
+
+  res.end('你好世界')
+
+})
+
+server.listen(port, hostname, () => {
+  process.title = '测试进程Node.js';
+  console.log(`process.pid:`, process.pid);
+  console.log(`服务器运行在 http://${hostname}:${port}/`)
+})
