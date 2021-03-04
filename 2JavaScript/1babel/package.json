@@ -1,0 +1,15 @@
+{
+  "name": "my_babel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TerryMin",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.13.8"
+  }
+}
