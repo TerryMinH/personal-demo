@@ -1,0 +1,45 @@
+<!--
+ * @Author: TerryMin
+ * @Date: 2021-03-04 17:34:38
+ * @LastEditors: TerryMin
+ * @LastEditTime: 2021-03-08 18:14:25
+ * @Description: file not
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+
+  Function.prototype.newCall = function (context, ...parameters) {
+    console.log(typeof context);
+    if (typeof context === 'object') {
+      context = context || window;
+    } else {
+      context = Object.create(null);
+    }
+    let fn = Symbol();
+    context[fn] = this;
+    context[fn](...parameters);
+    delete context[fn];
+  }
+  
+  let person = {
+    name: 'Abiel'
+  }
+  function sayHi(age, sex) {
+    console.log(this.name, age, sex);
+  }
+  sayHi.newCall(null, 25, '男'); // Abiel 25 男
+</script>
+
+</html>

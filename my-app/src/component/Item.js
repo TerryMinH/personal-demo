@@ -2,24 +2,30 @@
  * @Author: TerryMin
  * @Date: 2020-11-12 19:21:58
  * @LastEditors: TerryMin
- * @LastEditTime: 2020-11-12 19:33:21
+ * @LastEditTime: 2021-03-05 15:40:21
  * @Description: file not
  */
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-export default class Item extends React.Component {
+import React, { useState, useReducer } from "react";
 
-  render() {
-    return (
-      <div>
-       <Link to="/list">返回</Link>
-      </div>
-    )
+const myReducer = (state, action) => {
+  switch (action.type) {
+    case 'countUp':
+      return {
+        ...state,
+        count: state.count + 1
+      }
+    default:
+      return state
   }
+}
 
+export default function Item () {
+  const [state, dispatch] = useReducer(myReducer, { count: 0 });
+
+  return (
+    <div className="App">
+      <button onClick={() => { dispatch({ type: 'countUp' }) }}>+1</button>
+      <p>Count:{state.count}</p>
+    </div>
+  )
 }
