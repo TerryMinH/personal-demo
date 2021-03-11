@@ -2,7 +2,7 @@
  * @Author: TerryMin
  * @Date: 2020-11-05 10:18:09
  * @LastEditors: TerryMin
- * @LastEditTime: 2020-11-05 10:50:02
+ * @LastEditTime: 2021-03-10 18:05:46
  * @Description: file not
  */
 import React, { Component } from 'react'
@@ -13,6 +13,11 @@ import Picker from '../components/Picker'
 import Posts from '../components/Posts'
 
 class App extends Component {
+ 
+  // constructor(props){
+  //   super(props);
+  //   console.log(this);
+  // }
   static propTypes = {
     selectedSubreddit: PropTypes.string.isRequired,
     posts: PropTypes.array.isRequired,
@@ -22,6 +27,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log(this);
     const { dispatch, selectedSubreddit } = this.props
     dispatch(fetchPostsIfNeeded(selectedSubreddit))
   }
@@ -34,6 +40,7 @@ class App extends Component {
   }
 
   handleChange = nextSubreddit => {
+
     this.props.dispatch(selectSubreddit(nextSubreddit))
   }
 
