@@ -2,7 +2,7 @@
  * @Author: TerryMin
  * @Date: 2020-08-25 17:27:01
  * @LastEditors: TerryMin
- * @LastEditTime: 2021-03-05 14:56:41
+ * @LastEditTime: 2021-03-11 13:44:40
  * @Description: file not
  */
 // import React from 'react';
@@ -20,20 +20,40 @@
 
 // export default App;
 
-import React from 'react'
+import React, { useState, memo, useMemo } from 'react'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import CacheRoute, { CacheSwitch } from 'react-router-cache-route'
 
-import List from './component/List'
-import Item from './component/Item'
-import CustomerHooks from './component/CustomerHooks'
-
-const App = () => (
-  <>
-    <CustomerHooks></CustomerHooks>
-    <Item></Item>
-  </>
+const Child = memo(({ data }) => {
+  console.log('child render...', data.name);
+  return (
+    <div>
+      <div>child</div>
+      <div>{data.name}</div>
+    </div>
+  )
+}
 )
-
+const App = () => {
+  console.log('Hook render...');
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('rose');
+  const data = useMemo(() => {
+    return { name }
+  }, [name])
+  console.log(this);
+  const changeName = () => {
+    setCount(count + 1);
+    setName('Terry')
+  }
+  
+  return (
+    <div>
+      <div>{count}</div>
+      <button onClick={changeName}>update count</button>
+      <Child data={data} />
+    </div>
+  )
+}
 export default App
