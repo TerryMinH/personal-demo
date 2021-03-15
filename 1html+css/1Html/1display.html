@@ -1,135 +1,45 @@
+<!--
+ * @Author: TerryMin
+ * @Date: 2021-03-12 14:46:49
+ * @LastEditors: TerryMin
+ * @LastEditTime: 2021-03-15 09:44:55
+ * @Description: file not
+-->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <title>clock</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
 
 <body>
-  <canvas id="clock" width="500" height="700"></canvas>
-  <script type="text/javascript">
-    //时钟
-    function clock(canvas) {
-      this.canvas = canvas;
-      this.ctx = canvas.getContext('2d');
-      this.clear = function () {
-        var ctx = this.ctx;
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-      }
 
-      //初始化调用
-      this.init = function () {
-        //图片加载
-        var clockImage = new Image();
-        var that = this;
-        clockImage.src = '';
-        clockImage.onload = function () {
-          setInterval(function () {
-            that.drawClock(clockImage);
-          }, 1000)
-        }
-      }
-      //画时钟
-      this.drawClock = function (img) {
-        this.clear();
-        this.drawClockBg(img);
-        this.drawTime();
-      }
-      //画时钟背景
-      this.drawClockBg = function (img) {
-        var ctx = this.ctx;
-        ctx.drawImage(img, 0, 0, 500, 500);
-        ctx.save();
-        //转到原点
-        ctx.translate(500 / 2, 500 / 2);
-        //画数字
-        var clockRadius = 250;
-        ctx.font = '36px Arial';
-        ctx.fillStyle = '#000';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        for (var n = 1; n <= 12; n++) {
-          var theta = (n - 3) * (Math.PI * 2) / 12;
-          var x = clockRadius * 0.7 * Math.cos(theta);
-          var y = clockRadius * 0.7 * Math.sin(theta);
-          ctx.fillText(n, x, y);
-        }
-        ctx.restore();
-      }
-
-      //画时间
-      this.drawTime = function () {
-        // 获取时间
-        var date = new Date();
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var seconds = date.getSeconds();
-        var temhours = hours > 12 ? hours - 12 : hours;
-        var hour = temhours + minutes / 60;
-        var minute = minutes + seconds / 60;
-        var ctx = this.ctx;
-        var clockRadius = 250;
-
-        ctx.save();
-        ctx.fillStyle = '#000';
-        //重新转到时钟原点
-        ctx.translate(500 / 2, 500 / 2);
-
-        //画时针
-        ctx.save();
-        //计算出线转动的角度
-        var theta = (hour - 3) * 2 * Math.PI / 12;
-        ctx.rotate(theta);
-        ctx.beginPath();
-        //通过画线划出时针
-        ctx.moveTo(-15, -5);
-        ctx.lineTo(-15, 5);
-        ctx.lineTo(clockRadius * 0.5, 1);
-        ctx.lineTo(clockRadius * 0.5, -1);
-        ctx.fill();
-        ctx.restore();
-
-        // 画分针
-        ctx.save();
-        var theta = (minute - 15) * 2 * Math.PI / 60;
-        ctx.rotate(theta);
-        ctx.beginPath();
-        ctx.moveTo(-15, -4);
-        ctx.lineTo(-15, 4);
-        ctx.lineTo(clockRadius * 0.8, 1);
-        ctx.lineTo(clockRadius * 0.8, -1);
-        ctx.fill();
-        ctx.restore();
-
-        // 画秒针
-        ctx.save();
-        var theta = (seconds - 15) * 2 * Math.PI / 60;
-        ctx.rotate(theta);
-        ctx.beginPath();
-        ctx.moveTo(-15, -3);
-        ctx.lineTo(-15, 3);
-        ctx.lineTo(clockRadius * 0.9, 1);
-        ctx.lineTo(clockRadius * 0.9, -1);
-        ctx.fillStyle = '#0f0';
-        ctx.fill();
-        ctx.restore();
-
-        ctx.restore();
-        //画当前时间
-        ctx.font = "60px impact";
-        ctx.fillStyle = '#960';
-        ctx.textAlign = 'center';
-        ctx.fillText((hours > 9 ? hours : '0' + hours) + ':' + (minutes > 9 ? minutes : '0' + minutes) + ':' + (seconds > 9 ? seconds : '0' + seconds), 250, 600);
-      }
-    }
-
-
-    window.addEventListener('load', function () {
-      canvas = document.getElementById('clock');
-      new clock(canvas).init();
-    });
-  </script>
 </body>
+<script>
+  
+  Function.prototype.newApply = function (context, parameter) {
+    if (typeof context === 'object') {
+      context = context || window
+    } else {
+      context = Object.create(null)
+    }
+    let fn = Symbol()
+    context[fn] = this
+    console.log(context)
+    console.log(parameter)
+    context[fn](...parameter);
+    delete context[fn]
+  }
+  let person = {
+    name: 'Abiel'
+  }
+  function sayHi(age, sex) {
+    console.log(this.name, age, sex);
+  }
+  sayHi.newApply(person, [25, '男']);
+</script>
 
 </html>
